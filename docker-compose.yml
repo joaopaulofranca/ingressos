@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        APP_VERSAO: ${APP_VERSAO:-dev}
     volumes:
       - .:/var/www/html
     command: sh -c "composer install --no-interaction --prefer-dist && exec php-fpm -F"
