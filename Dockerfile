@@ -16,7 +16,12 @@ RUN apt-get update \
     && apt-get purge -y --auto-remove $PHPIZE_DEPS \
     && rm -rf /var/lib/apt/lists/*
 
+RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+ARG APP_VERSAO=dev
+ENV APP_VERSAO=${APP_VERSAO}
 
 WORKDIR /var/www/html
 
